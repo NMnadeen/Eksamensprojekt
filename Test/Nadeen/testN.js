@@ -1,11 +1,11 @@
 let cols, rows;
-let gridSize = 30; //kvadratform
+let gridSize = 40; //kvadratform
 let grid = [];
 let cell;
 
 function setup() 
 {
-	createCanvas(300, 300);
+	createCanvas(440, 440);
 	background('gray')
 	cols = width/gridSize;
 	rows = height/gridSize;
@@ -37,7 +37,7 @@ class Cell{
 		this.c=c
 	}
 
-	show(){
+	show(){ 
 		let x = this.r*gridSize;
 		let y = this.c*gridSize;
 		stroke(0);
