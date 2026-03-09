@@ -18,7 +18,7 @@ function setup()
 		}
 	}
 	
-	//Manuel map generator
+	//Manuel map generator - SPAWN række 1, kolonne 6
 	//Række 1
 	grid[0].setWalls([true,false,false,true])
 	grid[1].setWalls([true,false,true,false])
