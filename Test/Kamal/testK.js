@@ -49,8 +49,9 @@ function draw()
 		
 	}
 	playerControls()
-	player1og2Draw()
 	skærmBarriers()
+
+	player1og2Draw()
 }
 
 class Cell{
