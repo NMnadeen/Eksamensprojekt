@@ -205,6 +205,7 @@ class Cell{
 		
 		//Linjerne tegnes systematisk fra toppen og højre om. 
 		stroke(0);
+		strokeWeight(2)
 		noFill();
 		
 		let coords = [	[x			,y			,x+gridSize	,y			],

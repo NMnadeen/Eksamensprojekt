@@ -1,10 +1,13 @@
 let cols, rows;
-let gridSize = 40; //kvadratform
+let gridSize = 40; // kvadratform
 let grid = [];
 let cell;
+let current; // Aktive celle
+let neighbors = [] // Nabo
 
 function setup() 
 {
+	
 	createCanvas(440, 440);
 	background('gray')
 	cols = width/gridSize;
@@ -18,15 +21,17 @@ function setup()
 		}
 	}
 	
-	
+	current = grid[0];
 }
 
 
-function draw()
-{
+function draw(){
+	current.visited = true
 	background('gray')
-	for (let i = 0; i<grid.length;i++)	{
+	for (let i = 0; i<grid.length;i++)	{	
 		grid[i].show()
+		//grid[i].visited = false;
+		//print(grid[i])
 	}
 
 }
@@ -36,14 +41,33 @@ class Cell{
 		this.r=r;
 		this.c=c;
 		this.walls = [true,true,true,true];
+		this.visited = false;	
+	}
+
+	checkNeighbours(){
+		if (!this.top){
+			neighbors.push(top)
+		}
+
+		if (!this.right){
+			neighbors.push(right)
+		}
+		
+		if (!this.bottom){
+			neighbors.push(bottom)
+		}
+
+		if (!this.left){
+			neighbors.push(left)
+		}
 	}
 
 	getX(){ // Getter metode
-		return this.c*gridSize
+		return this.c*gridSize;
 	}
 
 	getY(){ // Getter metode
-		return this.r*gridSize
+		return this.r*gridSize;
 	}
 
 	show(){ //x er kolonner (vandret), y er rækker (lodret)
@@ -60,15 +84,18 @@ class Cell{
 						[x			,y+gridSize	,x			,y			]];
 
 		for (let i = 0; i<grid.length; i++){
-			for (let j = 0; j < coords.length; j++){
-				if (this.walls[j]){
-					line(...coords[j]) //Seperation af array
-					//print(coords[j])
+			if (this.walls[i]){
+				line(...coords[i]) //Seperation af array
+				//print(coords[j])
 			}
 			
-		}
+		
 		}
 		
+		if (this.visited){
+			fill(180,180,180);
+			rect(x,y,gridSize,gridSize)
+		}
 		
 		/*if (this.walls[0]){
 		line(x			,y			,x+gridSize	,y			); // Top	
@@ -88,7 +115,6 @@ class Cell{
 		
 		//rect(x,y,gridSize,gridSize); //Hvis det skal være firkanter
 	}*/
-
 	
 }
 }
