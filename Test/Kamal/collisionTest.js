@@ -22,6 +22,9 @@ let normalSpeed = 2; //hastighed for bevægelsen af player 1 og 2
 
 let playerSize = (20,20); 
 
+// Gemmer spillernes gamle positioner før de flytter sig (til barriers)
+let oldX1, oldY1, oldX2, oldY2;
+
 
 //Player controls for movement
 function playerControls(){
@@ -76,6 +79,59 @@ function skærmBarriers(){ //sørger for at begge spiller bliver inden for canva
   y2 = hold(y2, 0, height - playerSize);
 }
 
+// BARRIER KODE
+// Finder hvilken celle spilleren er i ud fra spillerens position
+function getCellIndexFromPlayer(px, py){
+  let centerX = px + 10; // center af spilleren i x-retning
+  let centerY = py + 10; // center af spilleren i y-retning
+
+  // finder hvilken kolonne og række spillerens center ligger i
+  let c = floor(centerX / gridSize);
+  let r = floor(centerY / gridSize);
+
+  // sørger for at spilleren altid bliver i gyldigt grid-område
+  c = constrain(c, 0, cols - 1);
+  r = constrain(r, 0, rows - 1);
+
+  // laver række + kolonne om til index i grid-arrayet
+  return r * cols + c;
+}
+
+// Tjekker om en spiller prøver at gå ind i en væg
+function wallBarrierForPlayer(px, py, oldX, oldY){
+
+  // finder den celle spilleren står i
+  let index = getCellIndexFromPlayer(px, py);
+  let currentCell = grid[index];
+
+  // finder spillerens lokale position inde i cellen
+  // altså hvor langt spilleren er inde i cellen fra øverste venstre hjørne
+  let localX = (px + 10) - currentCell.getX();
+  let localY = (py + 10) - currentCell.getY();
+
+  // Hvis der er en top-væg og spilleren går for langt op, sættes y tilbage
+  if(currentCell.walls[0] && localY < 10){
+    py = oldY;
+  }
+
+  // Hvis der er en højre væg og spilleren går for langt mod højre, sættes x tilbage
+  if(currentCell.walls[1] && localX > gridSize - 10){
+    px = oldX;
+  }
+
+  // Hvis der er en bund-væg og spilleren går for langt ned, sættes y tilbage
+  if(currentCell.walls[2] && localY > gridSize - 10){
+    py = oldY;
+  }
+
+  // Hvis der er en venstre væg og spilleren går for langt mod venstre, sættes x tilbage
+  if(currentCell.walls[3] && localX < 10){
+    px = oldX;
+  }
+
+  // returnerer spillerens position efter collision-check
+  return {x: px, y: py};
+}
 
 
 function setup() 
@@ -248,8 +304,29 @@ function setup()
 
 function draw()
 {
+	// -------- NY KODE START --------
+	// gemmer spillernes gamle position før de flytter sig
+	oldX1 = x1;
+	oldY1 = y1;
+	oldX2 = x2;
+	oldY2 = y2;
+	// -------- NY KODE SLUT --------
+
 	playerControls()
 	skærmBarriers()
+
+	// -------- NY KODE START --------
+	// tjekker om spiller 1 er gået ind i en væg
+	let p1 = wallBarrierForPlayer(x1, y1, oldX1, oldY1);
+	x1 = p1.x;
+	y1 = p1.y;
+
+	// tjekker om spiller 2 er gået ind i en væg
+	let p2 = wallBarrierForPlayer(x2, y2, oldX2, oldY2);
+	x2 = p2.x;
+	y2 = p2.y;
+	// -------- NY KODE SLUT --------
+
 	background('gray')
 	for (let i = 0; i<grid.length;i++)	{
 		grid[i].show()
