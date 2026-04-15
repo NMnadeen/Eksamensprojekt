@@ -4,10 +4,11 @@ function setup()
 	background(235)
 
 	let buttonA = createButton('Start game');
-    buttonA.position(width/2-width*2/8, height/2);
+	buttonA.size(100,30)
+	buttonA.position(width/2-50, height/2-15);
     buttonA.mousePressed(changePageToLvl1);
 }
 
 function changePageToLvl1(){
-	//window.location.href = "samlettest.html";
+	window.location.href = "samlettest.html";
 }
