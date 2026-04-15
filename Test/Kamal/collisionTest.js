@@ -304,18 +304,15 @@ function setup()
 
 function draw()
 {
-	// -------- NY KODE START --------
 	// gemmer spillernes gamle position før de flytter sig
 	oldX1 = x1;
 	oldY1 = y1;
 	oldX2 = x2;
 	oldY2 = y2;
-	// -------- NY KODE SLUT --------
 
 	playerControls()
 	skærmBarriers()
 
-	// -------- NY KODE START --------
 	// tjekker om spiller 1 er gået ind i en væg
 	let p1 = wallBarrierForPlayer(x1, y1, oldX1, oldY1);
 	x1 = p1.x;
@@ -325,7 +322,6 @@ function draw()
 	let p2 = wallBarrierForPlayer(x2, y2, oldX2, oldY2);
 	x2 = p2.x;
 	y2 = p2.y;
-	// -------- NY KODE SLUT --------
 
 	background('gray')
 	for (let i = 0; i<grid.length;i++)	{
