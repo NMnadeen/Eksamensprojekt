@@ -358,16 +358,16 @@ function checkWin() { // kamal
 	let p2CenterY = y2 + 10;
 
 	let player1OnGoal =
-		p1CenterX >= width / 2 - gridSize &&
-		p1CenterX < width / 2 &&
-		p1CenterY >= height - gridSize &&
-		p1CenterY < height;
+	p1CenterX >= width / 2 &&
+	p1CenterX < width / 2 + gridSize &&
+	p1CenterY >= height - gridSize &&
+	p1CenterY < height;
 
-	let player2OnGoal =
-		p2CenterX >= width / 2 &&
-		p2CenterX < width / 2 + gridSize &&
-		p2CenterY >= height - gridSize &&
-		p2CenterY < height;
+let player2OnGoal =
+	p2CenterX >= width / 2 - gridSize &&
+	p2CenterX < width / 2 &&
+	p2CenterY >= height - gridSize &&
+	p2CenterY < height;
 
 	if (player1OnGoal && player2OnGoal) {
 		window.location.href = "slutSkærm.html";
