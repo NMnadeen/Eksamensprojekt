@@ -15,10 +15,10 @@ let rightCurrent;    //Nuværende celle
 let rightStack = []; //Til backtracking
 
 //Temporary start position for player 1 (x1,y1) og player 2 (x2,y2)
-let startPosx1 = 40;
-let startPosx2 = 40;
-let startPosy1 = 40;
-let startPosy2 = 40;
+let startPosx1 = 850;
+let startPosx2 = 10;
+let startPosy1 = 10;
+let startPosy2 = 10;
 
 let x1 = startPosx1;
 let x2 = startPosx2;
@@ -93,6 +93,7 @@ function draw() {
 	x2 = p2.x;
 	y2 = p2.y;
 
+	checkWin()
 	player1og2Draw()
 }
 
@@ -347,3 +348,30 @@ class Cell {
 		if (this.walls[3]) line(x			, y + gridSize, x			, y			  );
 	}
 } 
+
+//slutskærm
+function checkWin() {
+	let p1CenterX = x1 + 10;
+	let p1CenterY = y1 + 10;
+
+	let p2CenterX = x2 + 10;
+	let p2CenterY = y2 + 10;
+
+	// Player 1 skal være i HØJRE grønne felt
+	let player1OnGoal =
+		p1CenterX >= width / 2 &&
+		p1CenterX < width / 2 + gridSize &&
+		p1CenterY >= height - gridSize &&
+		p1CenterY < height;
+
+	// Player 2 skal være i VENSTRE grønne felt
+	let player2OnGoal =
+		p2CenterX >= width / 2 - gridSize &&
+		p2CenterX < width / 2 &&
+		p2CenterY >= height - gridSize &&
+		p2CenterY < height;
+
+	if (player1OnGoal && player2OnGoal) {
+		window.location.href = "slutSkærm.html";
+	}
+}
