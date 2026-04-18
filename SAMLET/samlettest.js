@@ -98,7 +98,7 @@ function draw() {
 }
 
 //Player controls for movement
-function playerControls(){
+function playerControls(){ - Kamal
 	if(keyIsDown(LEFT_ARROW)){
 		x1-=normalSpeed;
 	} 
@@ -126,22 +126,22 @@ function playerControls(){
 	}
 }
 
-function preload() {
+function preload() { - Kamal
 	playerImg1 = loadImage("blob1.png");
 	playerImg2 = loadImage("blob2.png");
 }
 
-function player1og2Draw(){ //tegner player 1 og 2 
+function player1og2Draw(){ //tegner player 1 og 2 - Kamal
 	image(playerImg1, x1, y1, 20, 20);
 	image(playerImg2, x2, y2, 20, 20);
 }
 
 // skærm barrier
-function hold(v, min, max){ //holder en værdi mellem min og max
+function hold(v, min, max){ //holder en værdi mellem min og max - Kamal
   return Math.min(Math.max(v, min), max); //hvis < min returner min hvis > max retuner max ellers returner v
 }
 
-function skærmBarriers(){ //sørger for at begge spiller bliver inden for canvas
+function skærmBarriers(){ //sørger for at begge spiller bliver inden for canvas - Kamal
   x1 = hold(x1, 0, width  - playerSize); //hold player 1 x1 mellem 0 og width af skærmen
   y1 = hold(y1, 0, height - playerSize);
 
@@ -151,7 +151,7 @@ function skærmBarriers(){ //sørger for at begge spiller bliver inden for canva
 
 // BARRIER KODE
 // Finder hvilken celle spilleren er i ud fra spillerens position
-function getCellIndexFromPlayer(px, py){
+function getCellIndexFromPlayer(px, py){ // - nadeen
   let centerX = px + 10;
   let centerY = py + 10;
 
@@ -169,7 +169,7 @@ function getCellIndexFromPlayer(px, py){
 }
 
 // Tjekker om en spiller prøver at gå ind i en væg
-function wallBarrierForPlayer(px, py, oldX, oldY){
+function wallBarrierForPlayer(px, py, oldX, oldY){ // - kamal
 
   let grid = px < width / 2 ? leftGrid : rightGrid;
 
@@ -200,7 +200,7 @@ function wallBarrierForPlayer(px, py, oldX, oldY){
 
 
 
-function generateMaze(grid, stack, offsetX) {
+function generateMaze(grid, stack, offsetX) { //- nadeen
 	let current;
 
 	//Vælg current celle
@@ -240,7 +240,7 @@ function generateMaze(grid, stack, offsetX) {
 	}
 }
 
-function drawStartAndGoal() {
+function drawStartAndGoal() { // - nadeen
 	noStroke();
 
 	//VENSTRE start
@@ -260,14 +260,14 @@ function drawStartAndGoal() {
 	rect(width / 2, height - gridSize, gridSize, gridSize);
 }
 
-function index(r, c) { //Konvertering af r og c til array position
+function index(r, c) { //Konvertering af r og c til array position - nadeen
 	if (r < 0 || c < 0 || r >= rows || c >= cols) { //Hvis "cellen" er udenfor grid
 		return -1;
 	}
 	return r * cols + c; //Laver 2D koordinat til 1D array index
 }
 
-function removeWalls(a, b) { 
+function removeWalls(a, b) { //- nadeen
 	let x = a.c - b.c; //Sammenlign kolonner
 	let y = a.r - b.r; //Sammenlign rækker
 
@@ -292,7 +292,7 @@ function removeWalls(a, b) {
 	}
 }
 
-class Cell {
+class Cell { //- nadeen
 	constructor(r, c) {
 		this.r = r;
 		this.c = c;
@@ -349,9 +349,8 @@ class Cell {
 	}
 } 
 
-//slutskærm
-function checkWin() {
-	let p1CenterX = x1 + 10;
+//slutskærm 
+function checkWin() { // Kamal
 	let p1CenterY = y1 + 10;
 
 	let p2CenterX = x2 + 10;
